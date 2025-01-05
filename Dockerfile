@@ -5,4 +5,4 @@ FROM atendai/evolution-api:v2.1.1
 EXPOSE 8080
 
 # Comando para diagnóstico e execução
-CMD ["sh", "-c", "redis-cli ping && npm run start:prod"]
+CMD ["sh", "-c", "redis-cli -h evolution_redis ping && npm run start:prod"]

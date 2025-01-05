@@ -5,7 +5,7 @@ services:
     container_name: evolution_api
     restart: always
     ports:
-      - "8080:8080"
+      - "8080:8080" # Porta da aplicação Evolution API
     environment:
       # Configurações do PostgreSQL
       DATABASE_ENABLED: true
@@ -38,7 +38,7 @@ services:
     container_name: evolution_redis
     restart: always
     ports:
-      - "6379:6379"
+      - "6379:6379" # Porta do Redis
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -50,7 +50,7 @@ services:
     container_name: evolution_postgres
     restart: always
     ports:
-      - "5432:5432"
+      - "5432:5432" # Porta do PostgreSQL
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: securepassword123
@@ -60,3 +60,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+volumes:
+  redis_data:
+  postgres_data:
