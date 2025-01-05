@@ -7,10 +7,10 @@ services:
     ports:
       - "8080:8080" # Porta da aplicação Evolution API
     environment:
-      # Configurações do PostgreSQL
+      # Configurações do PostgreSQL (fixas e dinâmicas)
       DATABASE_ENABLED: true
       DATABASE_PROVIDER: postgresql
-      DATABASE_CONNECTION_URI: postgresql://postgres:securepassword123@evolution_postgres:5432/evolution_db
+      DATABASE_CONNECTION_URI: ${DATABASE_CONNECTION_URI}
       DATABASE_CONNECTION_CLIENT_NAME: evolution_exchange
       DATABASE_SAVE_DATA_INSTANCE: true
       DATABASE_SAVE_DATA_NEW_MESSAGE: true
@@ -20,15 +20,15 @@ services:
       DATABASE_SAVE_DATA_LABELS: true
       DATABASE_SAVE_DATA_HISTORIC: true
 
-      # Configurações do Redis
+      # Configurações do Redis (fixas e dinâmicas)
       CACHE_REDIS_ENABLED: true
-      CACHE_REDIS_URI: redis://evolution_redis:6379
+      CACHE_REDIS_URI: ${CACHE_REDIS_URI}
       CACHE_REDIS_PREFIX_KEY: evolution
       CACHE_REDIS_SAVE_INSTANCES: false
       CACHE_LOCAL_ENABLED: false
 
-      # Chave de autenticação da API
-      AUTHENTICATION_API_KEY: securekey123
+      # Chave de autenticação da API (dinâmica)
+      AUTHENTICATION_API_KEY: ${AUTHENTICATION_API_KEY}
     depends_on:
       - redis
       - postgres
@@ -52,11 +52,11 @@ services:
     ports:
       - "5432:5432" # Porta do PostgreSQL
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: securepassword123
-      POSTGRES_DB: evolution_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
