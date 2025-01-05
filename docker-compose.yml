@@ -38,7 +38,7 @@ services:
     container_name: evolution_redis
     restart: always
     ports:
-      - "6379:6379" # Porta do Redis
+      - "6380:6379" # Mapeia a porta interna do Redis para a porta 6380 no host
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
